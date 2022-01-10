@@ -1,3 +1,4 @@
+
 from itertools import tee
 from typing import Text
 import requests
@@ -9,6 +10,9 @@ import csv
 import requests
 from bs4 import BeautifulSoup
 
+from django.utils.text import slugify
+import string
+import random
 
 def get_dbconnection():
     myclient = pymongo.MongoClient('mongodb://localhost:27017/') #link mongoDB, note: koneksikan terlebih dahulu
@@ -31,6 +35,9 @@ def print_data(mycol):
     for x in mycol.find():
         print(x)
 
+def rand_slug():
+    return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(6))
+
 def scrap_googlebook(url):
     global book_info
     urlnya = url
@@ -39,6 +46,8 @@ def scrap_googlebook(url):
 
     _judul = soup.select('h1[itemprop="name"] span')
     title = _judul[0].getText()
+
+    slug = slugify(rand_slug() + "-")
 
     _penulis = soup.select('a[class="hrTbp R8zArc"]')
     author = _penulis[0].getText()
@@ -50,24 +59,24 @@ def scrap_googlebook(url):
     cover_image = _cover['src']
     
     halaman = soup.find("div", string='Pages').find_next_sibling().text
-    pub_date = ''
+    rilis = ''
     try:
-        pub_date = soup.find("div", string='Published on').find_next_sibling().text
+        rilis = soup.find("div", string='Published on').find_next_sibling().text
         #print(pub_date)
     except AttributeError:
-        print("Tanggal terbit tidak ditemukan")
+        rilis = '-'
     
     penerbit = soup.find("div", string='Publisher').find_next_sibling().text
     
-    bahasa = soup.find("div", string='Language').find_next_sibling().text
+    language = soup.find("div", string='Language').find_next_sibling().text
     
-    kompability = soup.find("div", string='Best for').find_next_sibling().text
+    compatible = soup.find("div", string='Best for').find_next_sibling().text
     
-    genre = soup.find("div", string='Genres').find_next_sibling().text
+    category = soup.find("div", string='Genres').find_next_sibling().text
     
     harga_1 = soup.select('button[class="LkLjZd ScJHi HPiPcc IfEcue"]  meta[itemprop="price"]')[0]['content'].replace('$','')
     harga_2 = float(harga_1) * 14266.00
-    harga_final = 'Rp ' + "{:,}".format(int(harga_2)) + ',00'
+    harga = 'Rp ' + "{:,}".format(int(harga_2)) + ',00'
  
     _rating = soup.select('div[class="BHMmbe"]')
     rating = _rating[0].getText()
@@ -80,14 +89,15 @@ def scrap_googlebook(url):
         'cover_image':cover_image,
         'title':title,
         'author':author,
+        'slug':slug,
         'summary':summary,
         'Penerbit':penerbit,
-        'Tanggal Terbit':pub_date,
-        'Bahasa':bahasa,
+        'Tanggal Terbit':rilis,
+        'Bahasa':language,
         'Halaman':halaman,
-        'Baik Untuk':kompability,
-        'Genre':genre,
-        'Harga':harga_final,
+        'Baik Untuk':compatible,
+        'Category':category,
+        'Harga':harga,
         'Rating':rating,
         'Jumlah Rating':jumlah_rating
     }
@@ -121,4 +131,3 @@ def main():
           
 if __name__ == '__main__':
     main()
-
