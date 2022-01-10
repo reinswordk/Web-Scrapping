@@ -76,7 +76,7 @@ def scrap_googlebook(url):
     
     genre_mentah = soup.find("div", string='Genres').find_next_sibling().text
     genre_semi = genre_mentah.split('/')
-    genre = genre_semi
+    genre_final = [x.strip(' ') for x in genre_semi]
     
     harga_1 = soup.select('button[class="LkLjZd ScJHi HPiPcc IfEcue"]  meta[itemprop="price"]')[0]['content'].replace('$','')
     harga_2 = float(harga_1) * 14266.00
@@ -99,7 +99,7 @@ def scrap_googlebook(url):
         'Bahasa':bahasa,
         'Halaman':halaman,
         'Baik Untuk':kompability,
-        'Genre':genre,
+        'Genre':genre_final,
         'Harga':harga_final,
         'Rating':rating,
         'Jumlah Rating':jumlah_rating
