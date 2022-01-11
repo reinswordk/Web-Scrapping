@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Category(models.Model):
     name = models.CharField('Categories', max_length=50)
@@ -10,11 +11,11 @@ class Category(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length = 100)
     slug = models.SlugField(max_length=100)
-    cover_image = models.ImageField(upload_to = 'img', blank = True, null = True)
+    cover_image = models.ImageField(upload_to = 'img', blank = True, default=None)
     author = models.CharField(max_length=50)
-    summary = models.TextField()
+    summary = models.TextField(blank=False)
     publisher = models.CharField(max_length=50)
-    rilis = models.DateTimeField()
+    rilis = models.DateTimeField(null=True)
     language = models.CharField(max_length=10)
     halaman = models.CharField(max_length=10)
     compatible = models.CharField(max_length=50)
@@ -23,7 +24,7 @@ class Book(models.Model):
     rating = models.CharField(max_length=3)
     ratingsum = models.CharField(max_length=3)
     category = models.CharField(max_length=50)
-    pdf = models.FileField(upload_to='pdf')
+    #pdf = models.FileField(upload_to='pdf')
     recommended_books = models.BooleanField(default=False)
     fiction_books = models.BooleanField(default=False)
     business_books = models.BooleanField(default=False)
