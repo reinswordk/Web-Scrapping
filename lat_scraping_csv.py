@@ -90,7 +90,7 @@ def scrap_googlebook(url):
     rating = _rating[0].getText()
 
     _jumlah_rating = soup.select('span[class="EymY4b"] span')
-    jumlah_rating = _jumlah_rating[1].getText()
+    ratingsum = _jumlah_rating[1].getText()
     
 
     book_info = {
@@ -106,9 +106,9 @@ def scrap_googlebook(url):
         'halaman':halaman,
         'compatible':compatible,
         'genre':genre,
-        'Harga':harga,
+        'harga':harga,
         'rating':rating,
-        'Jumlah Rating':jumlah_rating
+        'ratingsum':ratingsum
     }
     # print(book_info)
     return book_info

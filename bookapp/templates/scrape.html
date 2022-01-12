@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+     <title>Book Site | Scrape Tool </title>
+     {% endblock %}
+
+{% block content %}
+
+<h1 class="text-center">Scrape Tool</h1>
+<form method="post">
+    <div class="form-group">
+        <label for="inputAddress">Link to Scrape</label>
+        <input name="scrapelink" type="text" class="form-control" id="inputAddress" value="{{ request.form['scrapelink']}}"
+            placeholder="httpsL//play.google.com/store/books/details/xxxx"/>    
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Scrape</button>
+</form>
+
+{% endblock %}

@@ -15,7 +15,7 @@ class Book(models.Model):
     author = models.CharField(max_length=50)
     summary = models.TextField(blank=False)
     publisher = models.CharField(max_length=50)
-    rilis = models.DateTimeField(null=True)
+    rilis = models.DateField(null=True, blank=True)
     language = models.CharField(max_length=10)
     halaman = models.CharField(max_length=10)
     compatible = models.CharField(max_length=50)
