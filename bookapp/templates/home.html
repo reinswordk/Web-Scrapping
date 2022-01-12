@@ -4,55 +4,85 @@
     <title>Book Site | Home</title>
     {% endblock %}
   {% block content %}  
-<div class = 'container'>
+<div class = 'container' style = "padding-left: 0px">
   <div class = 'row'><h4>Recommended Books</h4></div>
   <div class = 'row'>
     {% for book in recommended_books %}
-    <div class = 'col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2'>
-      <a href = "{% url 'book_detail' book.slug %}">
-        <div>
-          <div class="uk-card uk-card-default uk-card-body"> 
-            <img src = "{{book.cover_image}}">
-          </div>
-      </div>
-    </a>
-    </div>
+    <div class = 'col- col-sm-4 col-md-4 col-lg-3 col-xl-2 ml-3' class="card border-secondary mb-3" style="width: 18rem;">
+      <div class="card h-100">
+      <img src="{{book.cover_image}}" class="card-img-top" style="height: 25rem;" alt="...">
+<div class="card-body" >
+<h4 class="card-title"><strong>{{book.title}}</strong></h4>
+<p class="card-text">
+  <strong>Genre:</strong> {{book.genre}} <br/>
+  <strong>Bahasa:</strong> {{book.language}} <br/>
+  <strong>Rating:</strong> {{book.rating}} <br/>
+  <strong>Jumlah Halaman:</strong> {{book.halaman}} <br/>
+</p>
+<a href="{% url 'book_detail' book.slug %}" class="btn btn-primary">Selengkapnya</a>
+</div> 
+</div>
+           
+<div>     </div>
+     
+   </a>
+</div>
     {% endfor %}
   </div>
 </div>
 
 
-<div class = 'container'>
+<div class = 'container' style = "padding-left: 0px">
   <div class = 'row'><h4>Top Fiction Books</h4></div>
   <div class = 'row'>
     {% for book in fiction_books %}
-    <div class = 'col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2'>
-      <a href = "">
-        <div>
-          <div class="uk-card uk-card-default uk-card-body"> 
-             <img src = "{{book.cover_image}}">
-          </div>
+          <div class = 'col- col-sm-4 col-md-4 col-lg-3 col-xl-2 ml-3' class="card border-secondary mb-3" style="width: 18rem;">
+             <div class="card h-100">
+             <img src="{{book.cover_image}}" class="card-img-top" style="height: 25rem;" alt="...">
+   <div class="card-body" >
+     <h4 class="card-title"><strong>{{book.title}}</strong></h4>
+     <p class="card-text">
+         <strong>Genre:</strong> {{book.genre}} <br/>
+         <strong>Bahasa:</strong> {{book.language}} <br/>
+         <strong>Rating:</strong> {{book.rating}} <br/>
+         <strong>Jumlah Halaman:</strong> {{book.halaman}} <br/>
+     </p>
+     <a href="{% url 'book_detail' book.slug %}" class="btn btn-primary">Selengkapnya</a>
+   </div> 
+ </div>
+                  
+      <div>     </div>
+            
+          </a>
       </div>
-    </a>
-    </div>
     {% endfor %}
   </div>
 </div>
 
 
-<div class = 'container'>
+<div class = 'container' style = "padding-left: 0px">
     <div class = 'row'><h4>Top Business Books</h4></div>
     <div class = 'row'>
         {% for book in business_books %}
-      <div class = 'col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2'>
-        <a href = "">
-          <div>
-            <div class="uk-card uk-card-default uk-card-body"> 
-              <img src = "{{book.cover_image}}">
-            </div>
-        </div>
-      </a>
-      </div>
+        <div class = 'col- col-sm-4 col-md-4 col-lg-3 col-xl-2 ml-3' class="card border-secondary mb-3" style="width: 18rem;">
+          <div class="card h-100">
+          <img src="{{book.cover_image}}" class="card-img-top" style="height: 25rem;" alt="...">
+<div class="card-body" >
+  <h4 class="card-title"><strong>{{book.title}}</strong></h4>
+  <p class="card-text">
+      <strong>Genre:</strong> {{book.genre}} <br/>
+      <strong>Bahasa:</strong> {{book.language}} <br/>
+      <strong>Rating:</strong> {{book.rating}} <br/>
+      <strong>Jumlah Halaman:</strong> {{book.halaman}} <br/>
+  </p>
+  <a href="{% url 'book_detail' book.slug %}" class="btn btn-primary">Selengkapnya</a>
+</div> 
+</div>
+               
+   <div>     </div>
+         
+       </a>
+   </div>
       {% endfor %}
     </div>
   </div>
