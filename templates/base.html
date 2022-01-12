@@ -22,7 +22,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <div id = 'logo'>
-        <img src = "{% static 'img/pdf 3.png' %}">
+        <!--<img src = "{% static 'img/pdf 3.png' %}">-->
       </div>
       <!-- <a class="navbar-brand" href="#">Navbar</a> -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,16 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'all_books' %}">Books</a>
           </li>
-          
+          <li class="nav-item">
+            <a class="nav-link" href="">Genre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">Bahasa</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">Kompatibility</a>
+          </li>
+      
         </ul>
         <form class="d-flex" method = 'POST' action = "{% url 'book_search' %}" style="margin: 0px;">
           <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
@@ -52,7 +61,9 @@
             Hello {{user.username}}
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="/admin/bookapp/book/">Upload Book</a></li>
+            <li><a class="dropdown-item" href="/admin/bookapp/book/">Add Book</a></li>
+            <li><a class="dropdown-item" href="{% url 'scrape_book' %}">Scrape</a></li>
+            <li><a class="dropdown-item" href="">Upload</a></li>
             <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
           </ul>
         </div> 
