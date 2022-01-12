@@ -16,6 +16,7 @@ from django.utils.text import slugify
 import string
 import random
 
+from django.views.generic import ListView, DetailView
 
 # Create your views here.
 def home(request):
