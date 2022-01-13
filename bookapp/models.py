@@ -1,3 +1,4 @@
+from os import link
 from django.db import models
 
 
@@ -36,3 +37,14 @@ class BookSearch(models.Model):
     name_of_book = models.CharField(max_length=100)
     def __str__(self):
         return self.name_of_book
+
+class MyModel(models.Model):
+    fullname = models.CharField(max_length=200)
+    mobile_number = models.IntegerField()
+    def __str__(self):
+        return self.fullname
+
+class MyScrape(models.Model):
+    link = models.URLField(max_length=200)
+    def __str__(self):
+        return self.link

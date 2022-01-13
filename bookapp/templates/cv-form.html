@@ -1,0 +1,25 @@
+
+     {% extends 'base.html' %}
+     {% block title %}
+     <title>Book Form | All Books</title>
+     {% endblock %}
+ 
+   
+     {% block content %}
+        <div class="container">
+            <form method="POST">
+            <fieldset>
+                <legend>Form</legend>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </fieldset>
+            </form>
+        </div>
+    
+ </div>
+ {% endblock %}
+ 
+ 
+ 
+ 

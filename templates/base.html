@@ -61,8 +61,8 @@
             Hello {{user.username}}
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="/admin/bookapp/book/">Add Book</a></li>
-            <li><a class="dropdown-item" href="{% url 'scrape_book' %}">Scrape</a></li>
+            <li><a class="dropdown-item" href="{% url 'form' %}">Add Book</a></li>
+            <li><a class="dropdown-item" href="{% url 'scrape' %}">Scrape</a></li>
             <li><a class="dropdown-item" href="">Upload</a></li>
             <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
           </ul>
