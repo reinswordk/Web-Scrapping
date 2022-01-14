@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Book Site | Searched Books</title>
+{% endblock %}
+
+{% block content %}
+<div class = 'container'style = "padding-left: 0px">
+  <div class = 'row'><h4>Hasil pencarian anda:</h4></div>
+  <div class = 'row' >
+    {% if searched_books %}
+      {% for book in searched_books %}
+      <div class = 'col- col-sm-4 col-md-4 col-lg-3 col-xl-2 ml-3' class="card border-secondary mb-3" style="width: 18rem;">
+         <div class="card h-100">
+         <img src="{{book.cover_image}}" class="card-img-top" style="height: 25rem;" alt="...">
+<div class="card-body" >
+ <h4 class="card-title"><strong>{{book.title}}</strong></h4>
+ <p class="card-text">
+     <strong>Genre:</strong> {{book.genre}} <br/>
+     <strong>Bahasa:</strong> {{book.language}} <br/>
+     <strong>Rating:</strong> {{book.rating}} <br/>
+     <strong>Jumlah Halaman:</strong> {{book.halaman}} <br/>
+ </p>
+ <a href="{% url 'book_detail' book.slug %}" class="btn btn-primary">Selengkapnya</a>
+</div> 
+</div>
+      {% endfor %}
+      {% else %}
+      <div class = 'row'>
+          <h3>Buku yang ada cari tidak tersedia!</h3>
+      </div>
+      {% endif %}
+      
+
+    </div>
+  </div>
+  {% endblock %}
