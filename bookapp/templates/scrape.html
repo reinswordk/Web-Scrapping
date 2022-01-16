@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+     <title>Book Site | Scrape Tool </title>
+     {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <form method="POST" action='scrape'>
+    <fieldset>
+        <legend>Masukan Link</legend>
+        {% csrf_token %}
+        {{ scrape.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </fieldset>
+    </form>
+</div>
+
+</div>
+
+{% endblock %}
