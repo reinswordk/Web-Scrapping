@@ -41,9 +41,9 @@ def rand_slug():
 def rand_slug1():
     return ''.join(str(random.randint(0, 9)) for _ in range(8))
 
-def scrap_googlebook(url):
+def scrap_googlebook(request):
     global book_info
-    urlnya = url
+    urlnya = request
     page = requests.get(urlnya)
     soup = BeautifulSoup(page.text, 'html.parser')
 

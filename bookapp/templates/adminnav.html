@@ -1,0 +1,31 @@
+{% load static %}
+<link rel ="stylesheet" href ="{% static 'css/adminnav.css' %}">
+
+<aside class="wrapper">
+    <a href='/' class="logo">BookApp</a>
+    <div class="menu-list">
+        <a href="/admin" class="menu">
+            <i class="icon-category"></i>
+            Dashboard
+        </a>
+        <a href="/admin/catalog" class="menu">
+            <i class="icon-folder"></i>
+            Catalog
+        </a>
+        <a href="/admin/scrap" class="menu">
+            <i class="icon-paper-plus"></i>
+            Scrap
+        </a>
+    </div>
+</aside>
+
+<script>
+    let activePath = window.location.pathname
+    const menus = document.querySelectorAll('.menu')
+
+    menus.forEach(m => {
+        if (m.pathname == activePath) {
+            m.classList.add('active')
+        }
+    })
+</script>

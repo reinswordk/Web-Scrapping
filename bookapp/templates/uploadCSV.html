@@ -1,4 +1,4 @@
-
+ 
 <!doctype html>
 <html lang="en">
 
@@ -49,11 +49,11 @@
                                 class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link text-white" href="{% url 'form' %}">Add Book <span
+                        <a class="nav-link text-white" href="profile.html">Admin Profile <span
                                 class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>
+                        <a class="nav-link text-white" href="#">Logout</a>
                     </li>
                 </ul>
 
@@ -75,10 +75,12 @@
                         <fieldset>
                             <legend>Masukan Data Buku</legend>
                             {% csrf_token %}
-                            {{ form.as_p }}
+                            {{ importCSV.as_p }}
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </fieldset>
                         </form>
+                    </div>
+                
                     </div>
                 </div>
             </div>
@@ -106,7 +108,3 @@
 </body>
 
 </html>
- 
- 
- 
- 

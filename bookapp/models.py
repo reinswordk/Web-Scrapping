@@ -1,4 +1,4 @@
-from os import link
+import imghdr
 from django.db import models
 
 
@@ -12,7 +12,7 @@ class Category(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length = 100)
     slug = models.SlugField(max_length=100)
-    cover_image = models.ImageField(upload_to = 'img', blank = True, default=None)
+    cover_image = models.URLField(max_length=200)
     author = models.CharField(max_length=50)
     summary = models.TextField(blank=False)
     publisher = models.CharField(max_length=50)
@@ -24,7 +24,7 @@ class Book(models.Model):
     harga = models.CharField(max_length=50)
     rating = models.CharField(max_length=3)
     ratingsum = models.CharField(max_length=3)
-    category = models.CharField(max_length=50)
+    category = models.ManyToManyField(Category, related_name='books')
     #pdf = models.FileField(upload_to='pdf')
     recommended_books = models.BooleanField(default=False)
     fiction_books = models.BooleanField(default=False)
@@ -37,14 +37,18 @@ class BookSearch(models.Model):
     name_of_book = models.CharField(max_length=100)
     def __str__(self):
         return self.name_of_book
+    
+    
+class Todo(models.Model):
+    title = models.TextField(max_length=300)
+    category = models.ManyToManyField(Category, related_name='+')
+    
 
-class MyModel(models.Model):
-    fullname = models.CharField(max_length=200)
-    mobile_number = models.IntegerField()
     def __str__(self):
-        return self.fullname
+        return self.title
 
-class MyScrape(models.Model):
-    link = models.URLField(max_length=200)
+class CSV(models.Model):
+    upload = models.FileField(upload_to='dataCSV', max_length=100)
+
     def __str__(self):
-        return self.link
+        return str(self.upload)
