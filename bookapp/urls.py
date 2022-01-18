@@ -14,4 +14,6 @@ urlpatterns = [
     path('upload', views.importCSV, name = 'importCSV'),
     path('form', views.bookform, name='form'),
     path('dashboard', views.adminpage, name='adminpage'),
+    path('bookadmin', views.bookadmin, name='bookadmin'),
+    path('bookadmin/delete/<int:pk>/', views.bookadmin_delete, name='bookadmin-delete'),
 ]

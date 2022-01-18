@@ -255,3 +255,39 @@ def adminpage(request):
         'genres_count': genres_count,
     }
     return render(request, 'admin.html', context)
+
+def bookadmin(request):
+    items = Book.objects.all()
+    items_count = items.count()
+
+    users = User.objects.all()
+    users_count = users.count()
+
+    genres = Category.objects.all()
+    genres_count = genres.count()
+
+    if request.method == 'POST':
+        form = InputBuku(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('bookadmin')
+    else:
+        form = InputBuku()
+
+    context = {
+        'items': items,
+        'items_count': items_count,
+        'users': users,
+        'users_count': users_count,
+        'genres': genres,
+        'genres_count': genres_count,
+        'form': form,
+    }
+    return render(request, 'bookadmin.html', context)
+
+def bookadmin_delete(request, pk):
+    item = Book.objects.get(id=pk)
+    if request.method=='POST':
+        item.delete()
+        return redirect('bookadmin')
+    return render(request, 'bookdelete.html')

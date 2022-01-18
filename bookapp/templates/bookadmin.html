@@ -20,7 +20,7 @@
     <!--Custome CSS-->
     <link rel="stylesheet" href="./style.css">
 
-    <title>Home Page</title>
+    <title>Product Page</title>
 </head>
 
 <body>
@@ -28,7 +28,7 @@
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-info bg-info">
         <div class="container">
-            <a class="navbar-brand text-white" href="{% url 'adminpage' %}">BookAPP Dashboard</a>
+            <a class="navbar-brand text-white" href="index.html">KenInventory</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -37,25 +37,17 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link text-white" href="{% url 'all_books' %}">View Website <span
+                        <a class="nav-link text-white" href="index.html">Dashboard <span
                                 class="sr-only">(current)</span></a>
-                      </li>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                      <a class="nav-link text-white" href="{% url 'adminpage' %}">Dashboard <span
-                              class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link text-white" href="{% url 'scrape_book' %}">Scrape <span
-                                class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link text-white" href="{% url 'form' %}">Add Book <span
+                        <a class="nav-link text-white" href="profile.html">Admin Profile <span
                                 class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>
+                        <a class="nav-link text-white" href="#">Logout</a>
                     </li>
                 </ul>
 
@@ -87,7 +79,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <a class="text-decoration-none text-dark" href="{% url 'bookadmin' %}">
+                                <a class="text-decoration-none text-dark" href="staff.html">
                                     <div class="card my-card shadow text-center p-3">
                                         <h4>Total Buku <i class="fas fa-users"></i></h4>
                                         <h3>{{items_count}}</h3>
@@ -118,103 +110,54 @@
     </div>
     <!--End Topside-->
 
-    <!--Graphs-->
+    <!--Table-->
     <div class="container">
-        <div class="row my-5">
-            <div class="col-md-6">
-                <div class="bg-white">
-                    <canvas id="myChart1" width="400" height="300"></canvas>
-                    <script>
-                        var ctx = document.getElementById('myChart1').getContext('2d');
-                        var myChart1 = new Chart(ctx, {
-                            type: 'pie',
-                            data: {
-                                labels: [{% for genre in genres %} '{{ genre.name }}', {% endfor %}],
-                                datasets: [{
-                                    label: 'Genre',
-                                    data: [{% for genre in genres %} '{{genres_count}}', {% endfor %}],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
+        <div class="row my-4">
+            <div class="col-md-4">
+                <div class="border bg-white p-3">
+                    <h4>Add Products</h4>
+                    <hr>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form }}
+
+                        <input class="btn btn-success btn-block" type="submit" value="Add Product">
+
+                    </form>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="bg-white">
-                    <canvas id="myChart" width="400" height="300"></canvas>
-                    <script>
-                        var ctx = document.getElementById('myChart').getContext('2d');
-                        var myChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: [{% for item in items %} '{{ item.rilis }}', {% endfor %}],
-                                datasets: [{
-                                    label: 'Products',
-                                    data: [{% for item in items %} '{{item_count}}', {% endfor %}],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
-                </div>
+            <div class="col-md-8">
+                <table class="table bg-white">
+                    <thead class="bg-info">
+                        <tr class="text-white">
+                            <th scope="col">Judul Buku</th>
+                            <th scope="col">Penulis</th>
+                            <th scope="col">Rilis</th>
+                            <th scope="col">Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr>
+                            <td>{{item.title}}</td>
+                            <td>{{item.author}}</td>
+                            <td>{{item.rilis}}</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="{% url 'bookadmin-delete' item.id %}">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="row my-5">
-            
-        </div>
+
     </div>
-    <!--End Graphs-->
+
+
+
+    <!--End Table-->
 
     <!-- Optional JavaScript; choose one of the two! -->
 
