@@ -291,3 +291,53 @@ def bookadmin_delete(request, pk):
         item.delete()
         return redirect('bookadmin')
     return render(request, 'bookdelete.html')
+
+def bookadmin_update(request, pk):
+    item = Book.objects.get(id=pk)
+    if request.method=='POST':
+        form = InputBuku(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('bookadmin')
+    else:
+        form = InputBuku(instance=item)
+    context={
+        'form':form,
+    }
+    return render(request, 'bookupdate.html', context)
+
+def useradmin(request):
+    items = Book.objects.all()
+    items_count = items.count()
+
+    users = User.objects.all()
+    users_count = users.count()
+
+    genres = Category.objects.all()
+    genres_count = genres.count()
+
+    if request.method == 'POST':
+        form = InputBuku(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('bookadmin')
+    else:
+        form = InputBuku()
+
+    context = {
+        'items': items,
+        'items_count': items_count,
+        'users': users,
+        'users_count': users_count,
+        'genres': genres,
+        'genres_count': genres_count,
+        'form': form,
+    }
+    return render(request, 'useradmin.html', context)
+
+def useradmin_delete(request, pk):
+    user = User.objects.get(id=pk)
+    if request.method=='POST':
+        user.delete()
+        return redirect('useradmin')
+    return render(request, 'userdelete.html')

@@ -1,3 +1,4 @@
+{% load crispy_forms_tags %}
 <!doctype html>
 <html lang="en">
 
@@ -20,7 +21,7 @@
     <!--Custome CSS-->
     <link rel="stylesheet" href="./style.css">
 
-    <title>Home Page</title>
+    <title>Product Page</title>
 </head>
 
 <body>
@@ -118,103 +119,40 @@
     </div>
     <!--End Topside-->
 
-    <!--Graphs-->
+    <!--Table-->
     <div class="container">
-        <div class="row my-5">
-            <div class="col-md-6">
-                <div class="bg-white">
-                    <canvas id="myChart1" width="400" height="300"></canvas>
-                    <script>
-                        var ctx = document.getElementById('myChart1').getContext('2d');
-                        var myChart1 = new Chart(ctx, {
-                            type: 'pie',
-                            data: {
-                                labels: [{% for genre in genres %} '{{ genre.name }}', {% endfor %}],
-                                datasets: [{
-                                    label: 'Genre',
-                                    data: [{% for genre in genres %} '{{genres_count}}', {% endfor %}],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="bg-white">
-                    <canvas id="myChart" width="400" height="300"></canvas>
-                    <script>
-                        var ctx = document.getElementById('myChart').getContext('2d');
-                        var myChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: [{% for item in items %} '{{ item.rilis }}', {% endfor %}],
-                                datasets: [{
-                                    label: 'Products',
-                                    data: [{% for item in items %} '{{item_count}}', {% endfor %}],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
-                </div>
+        <div class="row my-4">
+            <div class="col-md-12">
+                <table class="table bg-white">
+                    <thead class="bg-info">
+                        <tr class="text-white">
+                            <th scope="col">Username</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Status Admin</th>
+                            <th scope="col">Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{user.username}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.is_staff}}</td>
+                            <td>
+                                <a class="btn btn-danger btn-sm" href="{% url 'useradmin-delete' user.id %}">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="row my-5">
-            
-        </div>
+
     </div>
-    <!--End Graphs-->
+
+
+
+    <!--End Table-->
 
     <!-- Optional JavaScript; choose one of the two! -->
 

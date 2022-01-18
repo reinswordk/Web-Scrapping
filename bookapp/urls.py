@@ -16,4 +16,7 @@ urlpatterns = [
     path('dashboard', views.adminpage, name='adminpage'),
     path('bookadmin', views.bookadmin, name='bookadmin'),
     path('bookadmin/delete/<int:pk>/', views.bookadmin_delete, name='bookadmin-delete'),
+    path('bookadmin/update/<int:pk>/', views.bookadmin_update, name='bookadmin-update'),
+    path('useradmin', views.useradmin, name='useradmin'),
+    path('useradmin/delete/<int:pk>/', views.useradmin_delete, name='useradmin-delete'),
 ]

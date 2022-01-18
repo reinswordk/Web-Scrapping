@@ -1,4 +1,3 @@
-{% load crispy_forms_tags %}
 <!doctype html>
 <html lang="en">
 
@@ -21,7 +20,7 @@
     <!--Custome CSS-->
     <link rel="stylesheet" href="./style.css">
 
-    <title>Home Page</title>
+    <title>Product Page</title>
 </head>
 
 <body>
@@ -37,7 +36,10 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    
+                    <li class="nav-item active">
+                        <a class="nav-link text-white" href="{% url 'all_books' %}">View Website <span
+                                class="sr-only">(current)</span></a>
+                      </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
@@ -62,30 +64,24 @@
     </nav>
     <!--End Navbar-->
 
-    <!--Topside-->
-    <div class="container">
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header bg-info text-white">
-                        Add Book
+    <div class="row my-4">
+        <div class="col-md-6 offset-md-3">
+            <div class="border p-3 bg-white">
+                <h3>Delete User</h3>
+                <hr>
+                <form method="POST">
+                    <div class="alert alert-danger">
+                        <h4>Are you sure, you want to delete {{ user }}?</h4>
                     </div>
-                    <div class="container">
-                        <form method="POST">
-                        <fieldset>
-                            <br>
-                            {% csrf_token %}
-                            {{ form|crispy }}
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </fieldset>
-                        </form>
-                    </div>
-                </div>
+                    {% csrf_token %}
+                    {{ form }}
+                    <a class="btn btn-secondary btn-sm" href="{% url 'useradmin' %}">Cancel</a>
+                    <input class="btn btn-danger btn-sm" type="submit" value="Confirm">
+                </form>
             </div>
         </div>
     </div>
-    <!--End Topside-->
-
+    <!--End Table-->
 
     <!-- Optional JavaScript; choose one of the two! -->
 
@@ -106,7 +102,3 @@
 </body>
 
 </html>
- 
- 
- 
- 

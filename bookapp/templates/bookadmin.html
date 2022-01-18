@@ -1,3 +1,4 @@
+{% load crispy_forms_tags %}
 <!doctype html>
 <html lang="en">
 
@@ -28,7 +29,7 @@
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-info bg-info">
         <div class="container">
-            <a class="navbar-brand text-white" href="index.html">KenInventory</a>
+            <a class="navbar-brand text-white" href="{% url 'adminpage' %}">BookAPP Dashboard</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -37,17 +38,25 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link text-white" href="index.html">Dashboard <span
+                        <a class="nav-link text-white" href="{% url 'all_books' %}">View Website <span
                                 class="sr-only">(current)</span></a>
-                    </li>
+                      </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link text-white" href="profile.html">Admin Profile <span
+                      <a class="nav-link text-white" href="{% url 'adminpage' %}">Dashboard <span
+                              class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link text-white" href="{% url 'scrape_book' %}">Scrape <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link text-white" href="{% url 'form' %}">Add Book <span
                                 class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Logout</a>
+                        <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>
                     </li>
                 </ul>
 
@@ -79,25 +88,25 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <a class="text-decoration-none text-dark" href="staff.html">
+                                <a class="text-decoration-none text-dark" href="{% url 'bookadmin' %}">
                                     <div class="card my-card shadow text-center p-3">
-                                        <h4>Total Buku <i class="fas fa-users"></i></h4>
+                                        <h4>Total Buku <i class="fas fa-book"></i></h4>
                                         <h3>{{items_count}}</h3>
                                     </div>
                                 </a>
                             </div>
                             <div class="col-md-4">
-                                <a class="text-decoration-none text-dark" href="product.html">
+                                <a class="text-decoration-none text-dark" href="{% url 'useradmin' %}">
                                     <div class="card my-card shadow text-center p-3">
-                                        <h4>Total User <i class="fas fa-box"></i></h4>
+                                        <h4>Total User <i class="fas fa-users"></i></h4>
                                         <h3>{{users_count}}</h3>
                                     </div>
                                 </a>
                             </div>
                             <div class="col-md-4">
-                                <a class="text-decoration-none text-dark" href="order.html">
+                                <a class="text-decoration-none text-dark" href="">
                                     <div class="card my-card shadow text-center p-3">
-                                        <h4>Total Category <i class="fas fa-shipping-fast"></i></h4>
+                                        <h4>Category <i class="fas fa-list-alt"></i></h4>
                                         <h3>{{genres_count}}</h3>
                                     </div>
                                 </a>
@@ -119,7 +128,7 @@
                     <hr>
                     <form method="POST">
                         {% csrf_token %}
-                        {{ form }}
+                        {{ form|crispy  }}
 
                         <input class="btn btn-success btn-block" type="submit" value="Add Product">
 
@@ -143,7 +152,7 @@
                             <td>{{item.author}}</td>
                             <td>{{item.rilis}}</td>
                             <td>
-                                <a class="btn btn-info btn-sm" href="">Edit</a>
+                                <a class="btn btn-info btn-sm" href="{% url 'bookadmin-update' item.id %}">Edit</a>
                                 <a class="btn btn-danger btn-sm" href="{% url 'bookadmin-delete' item.id %}">Delete</a>
                             </td>
                         </tr>

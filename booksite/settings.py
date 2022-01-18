@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'bookapp',
+    'crispy_forms',
         
 
     #allauth
@@ -156,6 +157,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

@@ -21,7 +21,7 @@
     <!--Custome CSS-->
     <link rel="stylesheet" href="./style.css">
 
-    <title>Home Page</title>
+    <title>Product Page</title>
 </head>
 
 <body>
@@ -37,7 +37,10 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    
+                    <li class="nav-item active">
+                        <a class="nav-link text-white" href="{% url 'all_books' %}">View Website <span
+                                class="sr-only">(current)</span></a>
+                      </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
@@ -62,30 +65,21 @@
     </nav>
     <!--End Navbar-->
 
-    <!--Topside-->
-    <div class="container">
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header bg-info text-white">
-                        Add Book
-                    </div>
-                    <div class="container">
-                        <form method="POST">
-                        <fieldset>
-                            <br>
-                            {% csrf_token %}
-                            {{ form|crispy }}
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </fieldset>
-                        </form>
-                    </div>
-                </div>
+    <div class="row my-4">
+        <div class="col-md-6 offset-md-3">
+            <div class="border p-3 bg-white">
+                <h3>Edit Item</h3>
+                <hr>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <a class="btn btn-secondary btn-sm" href="{% url 'bookadmin' %}">Cancel</a>
+                    <input class="btn btn-info btn-sm" type="submit" value="Update">
+                </form>
             </div>
         </div>
     </div>
-    <!--End Topside-->
-
+    <!--End Table-->
 
     <!-- Optional JavaScript; choose one of the two! -->
 
@@ -106,7 +100,3 @@
 </body>
 
 </html>
- 
- 
- 
- 
