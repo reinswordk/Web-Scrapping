@@ -89,24 +89,24 @@
                             <div class="col-md-4">
                                 <a class="text-decoration-none text-dark" href="staff.html">
                                     <div class="card my-card shadow text-center p-3">
-                                        <h4>Staff <i class="fas fa-users"></i></h4>
-                                        <h3>{% for book in books %} {{book.rating}} {% endfor %}</h3>
+                                        <h4>Total Buku <i class="fas fa-users"></i></h4>
+                                        <h3>{{items_count}}</h3>
                                     </div>
                                 </a>
                             </div>
                             <div class="col-md-4">
                                 <a class="text-decoration-none text-dark" href="product.html">
                                     <div class="card my-card shadow text-center p-3">
-                                        <h4>Products <i class="fas fa-box"></i></h4>
-                                        <h3>4</h3>
+                                        <h4>Total User <i class="fas fa-box"></i></h4>
+                                        <h3>{{users_count}}</h3>
                                     </div>
                                 </a>
                             </div>
                             <div class="col-md-4">
                                 <a class="text-decoration-none text-dark" href="order.html">
                                     <div class="card my-card shadow text-center p-3">
-                                        <h4>Orders <i class="fas fa-shipping-fast"></i></h4>
-                                        <h3>4</h3>
+                                        <h4>Total Category <i class="fas fa-shipping-fast"></i></h4>
+                                        <h3>{{genres_count}}</h3>
                                     </div>
                                 </a>
                             </div>
@@ -129,10 +129,10 @@
                         var myChart1 = new Chart(ctx, {
                             type: 'pie',
                             data: {
-                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                labels: [{% for genre in genres %} '{{ genre.name }}', {% endfor %}],
                                 datasets: [{
-                                    label: 'Products',
-                                    data: [12, 19, 3, 5, 2, 3],
+                                    label: 'Genre',
+                                    data: [{% for genre in genres %} '{{genres_count}}', {% endfor %}],
                                     backgroundColor: [
                                         'rgba(255, 99, 132, 1)',
                                         'rgba(54, 162, 235, 1)',
@@ -173,10 +173,10 @@
                         var myChart = new Chart(ctx, {
                             type: 'bar',
                             data: {
-                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                labels: [{% for item in items %} '{{ item.rilis }}', {% endfor %}],
                                 datasets: [{
                                     label: 'Products',
-                                    data: [12, 19, 3, 5, 2, 3],
+                                    data: [{% for item in items %} '{{item_count}}', {% endfor %}],
                                     backgroundColor: [
                                         'rgba(255, 99, 132, 1)',
                                         'rgba(54, 162, 235, 1)',
@@ -209,6 +209,9 @@
                     </script>
                 </div>
             </div>
+        </div>
+        <div class="row my-5">
+            
         </div>
     </div>
     <!--End Graphs-->

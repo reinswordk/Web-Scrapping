@@ -15,5 +15,5 @@ def book_search(request):
 
 
 def user_count(request):
-    total_user = User.objects.all().count()
+    total_user = User.objects.all()
     return {'total_user': total_user}

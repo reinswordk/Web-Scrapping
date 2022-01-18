@@ -1,3 +1,5 @@
+from multiprocessing import context
+from unicodedata import category
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponseRedirect
 from requests.sessions import Request
@@ -5,7 +7,7 @@ from requests.sessions import Request
 import bookapp
 from .models import Book, Category, Todo, CSV
 from django.contrib.auth.forms import UserCreationForm
-from  .forms import CreateUserForm, uploadd
+from  .forms import CreateUserForm, uploadd, User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -23,14 +25,12 @@ import pymongo
 import csv
 from .forms import InputBuku
 
+import datetime
 
 def get_dbconnection():
     myclient = pymongo.MongoClient('mongodb://localhost:27017/') 
     mydb = myclient['latscrapdb']
     mycol = mydb['bookapp_book'] 
-
-    mydoc = mycol.find().count()
-    print("The number of documents in collection : ", mydoc)
     
     return mycol
 
@@ -237,4 +237,21 @@ def logout_user(request):
     return redirect('home')
     
 def adminpage(request):
-    return render(request, 'admin.html', {})
+    items = Book.objects.all()
+    items_count = items.count()
+
+    users = User.objects.all()
+    users_count = users.count()
+
+    genres = Category.objects.all()
+    genres_count = genres.count()
+
+    context = {
+        'items': items,
+        'items_count': items_count,
+        'users': users,
+        'users_count': users_count,
+        'genres': genres,
+        'genres_count': genres_count,
+    }
+    return render(request, 'admin.html', context)
