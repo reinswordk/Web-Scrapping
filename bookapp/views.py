@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from requests.sessions import Request
 
 import bookapp
-from .models import Book, Category, Todo
+from .models import Book, Category, Todo, file_upload
 from django.contrib.auth.forms import UserCreationForm
-from  .forms import CreateUserForm
+from  .forms import CreateUserForm, MyfileUploadForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -20,7 +20,7 @@ import random
 
 from pymongo import MongoClient
 import pymongo
-import csv
+import csv, os, pickle
 
 
 def get_dbconnection():
@@ -182,4 +182,67 @@ def login_page(request):
 def logout_user(request):
     logout(request)
     return redirect('home')
+
+def generate_csv(filename):
+    global book_info_csv
+    with open(filename, 'r') as csvfile:
+	
+        csvreader = csv.reader(csvfile)
+        
+        book_info_csv = {rows[0]:rows[1] for rows in csvreader}
+    return book_info_csv
     
+def import_csv(request):
+    global book_info_csv
+    if request.method == 'POST':
+        form = MyfileUploadForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            name = form.cleaned_data['file_name']
+            the_files = form.cleaned_data['files_data']
+            the_filessemi = the_files.readlines()
+            # data_filecsv = the_filessemi.decode('utf-8')
+            bersih = []
+            for line in the_filessemi:
+                clean_ln = line.strip()
+                bersih.append(clean_ln)
+            for x in bersih:
+                print(x)
+            
+            
+            # for line in the_files:
+            #     print(line)
+                # write the data
+                #writer.writerow(data)
+            # out_file = open('testttt.pkl', 'wb')
+            # pickle.dump(the_files, out_file)
+            # out_file.close()
+            
+            # with open('testttt.pkl', 'rb') as a_file:
+            #     pickle.load(a_file)
+            #     csvreader = csv.reader(a_file)
+        
+            #     book_info_csv = {rows[0]:rows[1] for rows in csvreader}
+            
+            # #print(type(a_file))
+            # print(book_info_csv)
+            # a_file.close()
+            # the_files.save('sement/' + the_files.filename)
+            # file = open('sement/' + the_files.filename)
+            # csvreader = csv.reader(file)
+            # book_info_csv = {rows[0]:rows[1] for rows in csvreader}
+            # save_data(book_info_csv)
+            
+            # file_upload(file_name=name, my_file=the_files).save()
+            
+            return HttpResponse("file upload")
+        else:
+            return HttpResponse('error')
+
+    else:
+        
+        context = {
+            'form':MyfileUploadForm()
+        }      
+        
+        return render(request, 'importcsv.html', context)
