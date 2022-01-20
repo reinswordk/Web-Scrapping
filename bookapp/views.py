@@ -96,9 +96,13 @@ def scrap_googlebook(url):
     category = [x.strip(' ') for x in genre_semi]
     # genre = input("masuk kateori apa: ")
     
-    harga_1 = soup.select('button[class="LkLjZd ScJHi HPiPcc IfEcue"]  meta[itemprop="price"]')[0]['content'].replace('$','')
-    harga_2 = float(harga_1) * 14266.00
-    harga = 'Rp ' + "{:,}".format(int(harga_2)) + ',00'
+    try:
+        _harga = soup.find_all("button", jsmodel="UfnShf")[0]
+        harga_semi = float(_harga.getText().replace(' Ebook', '').replace('$', '').split(' ')[-1])
+        harga_semi_final = harga_semi * 14312.85
+        harga = 'Rp ' + "{:,}".format(int(harga_semi_final)) + ',00'
+    except AttributeError:
+        harga = 0
  
     _rating = soup.select('div[class="BHMmbe"]')
     rating = _rating[0].getText()
