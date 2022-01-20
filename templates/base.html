@@ -34,18 +34,8 @@
             <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'all_books' %}">Books</a>
+            <a class="nav-link" href="{% url 'all_books' %}">All Books</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Genre</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Bahasa</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Kompatibility</a>
-          </li>
-      
         </ul>
         <form class="d-flex" method = 'POST' action = "{% url 'book_search' %}" style="margin: 0px;">
           <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
@@ -84,12 +74,24 @@
     
             
             
+      {% if request.user.is_authenticated %}  
+      <p uk-margin style = "width: 80%; margin: auto; margin-top: 20px; text-align: center;">
+        <a class="uk-button uk-button-default" href="{% url 'art' %}"><strong>Art</strong></a>
+        <a class="uk-button uk-button-default" href="{% url 'education' %}"><strong>Education</strong></a>
+        <a class="uk-button uk-button-default" href="{% url 'family' %}"><strong>Family</strong></a>
+        <a class="uk-button uk-button-default" href="{% url 'fiction' %}"><strong>Fiction</strong></a>
+        <a class="uk-button uk-button-default" href="{% url 'food' %}"><strong>Food</strong></a>
+        <a class="uk-button uk-button-default" href="{% url 'horror' %}"><strong>Horror</strong></a>
+        <a class="uk-button uk-button-default" href="{% url 'kesehatan' %}"><strong>Kesehatan</strong></a>
+        <a class="uk-button uk-button-default" href="{% url 'komputer' %}"><strong>Komputer</strong></a>
+        <a class="uk-button uk-button-default" href="{% url 'komik' %}"><strong>Komik</strong></a>
+        <a class="uk-button uk-button-default" href="{% url 'sejarah' %}"><strong>Sejarah</strong></a>
         
-      <p uk-margin style = "width: 80%; margin: auto; margin-top: 20px">
         {% for category in categories %}
-        <a class="uk-button uk-button-default" href="{% url 'category_detail' category.slug %}"><strong>{{category.name}}</strong></a>
+        
         {% endfor %}
     </p>
+    {% endif %}
     
       
 

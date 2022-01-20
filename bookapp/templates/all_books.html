@@ -7,22 +7,61 @@
    
      {% block content %}
      <div class = 'container'>
-        <div class = 'row'><h4></h4></div>
-        <div class = 'row'>
-          {% for book in books %}
-          <div class = 'col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2'>
-            <a href = "{% url 'book_detail' book.slug %}">
-              <div>
-                <div class="uk-card uk-card-default uk-card-body"> 
-                    <img src = "{{book.cover_image}}">
-                   
-                </div>
+        <div class="row my-4">
+          {% if request.user.is_authenticated %}
+            <div class="col-md-3">
+                <div class="card-body">
+                  <div class="header">
+                    <div class="dropdown">
+                      <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Sorting
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="{% url 'lowtohigh' %}">Rating (Terendah - Tertinggi)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'hightolow' %}">Rating (Tertinggi - Terendah)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'priceless' %}">Harga (Terendah - Tertinggi)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'pricey' %}">Harga (Tertinggi - Terendah)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'newest' %}">Rilis (Terbaru - Terlama)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'oldest' %}">Rilis (Terlama - Terbaru)</a></li>
+                      </ul>
+                    </div> 
+                </div>        
+              </div>
+              <div class="card-body">
+                <div class="header">
+                  <div class="dropdown">
+                    <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      Pilih Bahasa
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" href="{% url 'indonesian' %}">Bahasa Indonesia</a></li>
+                      <li><a class="dropdown-item" href="{% url 'english' %}">English</a></li>
+                      <li><a class="dropdown-item" href="{% url 'other' %}">Lainnya</a></li>
+                    </ul>
+                  </div> 
+              </div>        
             </div>
-          </a>
-          </div>
-          {% endfor %}
-          
-          
+            </div> 
+            {% endif %}           
+            <div class="col-md-9">
+              <div class = 'row'><h4></h4></div>
+              <div class = 'row'>
+                {% for book in books %}
+                <div class = 'col-6 col-sm-4 col-md-4 col-lg-3'>
+                  <a href = "{% url 'book_detail' book.slug %}">
+                    <div>
+                      <div class="uk-card uk-card-default uk-card-body"> 
+                          <img src = "{{book.cover_image}}">
+                        
+                      </div>
+                  </div>
+                </a>
+                </div>
+                {% endfor %}
+                
+                
+              </div>
+            </div>
         </div>
       </div>
     {% endblock %}

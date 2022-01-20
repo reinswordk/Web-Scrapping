@@ -129,10 +129,10 @@
                         var myChart1 = new Chart(ctx, {
                             type: 'pie',
                             data: {
-                                labels: [{% for genre in genres %} '{{ genre.name }}', {% endfor %}],
+                                labels: [{% for genre in genres %} '{{genre}}', {% endfor %}],
                                 datasets: [{
                                     label: 'Genre',
-                                    data: [{% for genre in genres %} '{{genres_count}}', {% endfor %}],
+                                    data: [{% for genre in genres %} '{{result}}', {% endfor %}],
                                     backgroundColor: [
                                         'rgba(255, 99, 132, 1)',
                                         'rgba(54, 162, 235, 1)',

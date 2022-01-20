@@ -27,8 +27,8 @@ class Book(models.Model):
     category = models.ManyToManyField(Category, related_name='books')
     #pdf = models.FileField(upload_to='pdf')
     recommended_books = models.BooleanField(default=False)
-    fiction_books = models.BooleanField(default=False)
-    business_books = models.BooleanField(default=False)
+    best_seller = models.BooleanField(default=False)
+    diskon_books = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

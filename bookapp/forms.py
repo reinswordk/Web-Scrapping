@@ -41,6 +41,6 @@ class uploadd(forms.ModelForm):
 class InputBuku(forms.ModelForm):
   class Meta:
     model = Book
-    fields = ["title", "slug", "cover_image", "author", "summary", "publisher", "rilis", "language", "halaman", "compatible", "genre", "harga", "rating", "ratingsum", "category", "recommended_books", "fiction_books", "business_books"]
+    fields = ["title", "slug", "cover_image", "author", "summary", "publisher", "rilis", "language", "halaman", "compatible", "genre", "harga", "rating", "ratingsum", "category", "recommended_books", "best_seller", "diskon_books"]
     labels = {'title': "Judul Buku", 'slug': "Slug", 'cover_image': "URL Sampul", 'author': "Penulis", 'summary': "Ringkasan", 'publisher': "Penerbit", 'rilis': "Tanggal Terbit", 'language': "Bahasa", 'halaman': "Halaman", 'compatible': "Kompatibel untuk", 'genre': "Genre", 'harga': "Harga", 'rating': "Rating", 'ratingsum': "Jumlah Review", 'category': "Category",}
 

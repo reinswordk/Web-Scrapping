@@ -43,10 +43,10 @@ def save_data(masukin):
 # Create your views here.
 def home(request):
     recommended_books = Book.objects.filter(recommended_books = True)
-    fiction_books = Book.objects.filter(fiction_books = True)
-    business_books = Book.objects.filter(business_books = True)
+    best_seller = Book.objects.filter(best_seller = True)
+    diskon_books = Book.objects.filter(diskon_books = True)
     return render(request, 'home.html', {'recommended_books': recommended_books,
-    'business_books': business_books, 'fiction_books': fiction_books
+    'best_seller': best_seller, 'diskon_books': diskon_books
     })
 
 def all_books(request):
@@ -138,10 +138,9 @@ def scrape_book(request):
         # print(todo)
         scrap_googlebook(todo)
         save_data(book_info)
-        messages.info(request, 'Buku berhasil ditambahkan!')
+        messages.success(request, f'New Book has been added!')
         return render(request, 'scrape.html')
     except:
-        messages.info(request, 'Buku gagal untuk ditambahkan!')
         return render(request, 'scrape.html')
     # return render(request, 'scrape.html')
 
@@ -188,8 +187,9 @@ def bookform(request):
     form = InputBuku(request.POST)
     if form.is_valid():
       form.save()
-      messages.info(request, "Buku berhasil ditambahkan!")
-      return redirect('home')
+      book_name = form.cleaned_data.get('title')
+      messages.success(request, f'{book_name} has been added!')
+      return redirect('form')
   else:
       form = InputBuku()
   return render(request, 'upload.html', {'form': form})
@@ -270,6 +270,8 @@ def bookadmin(request):
         form = InputBuku(request.POST)
         if form.is_valid():
             form.save()
+            book_name = form.cleaned_data.get('title')
+            messages.success(request, f'{book_name} has been added!')
             return redirect('bookadmin')
     else:
         form = InputBuku()
@@ -341,3 +343,185 @@ def useradmin_delete(request, pk):
         user.delete()
         return redirect('useradmin')
     return render(request, 'userdelete.html')
+
+def map_genres(books):
+    genres = []
+
+    for book in books:
+        for genre in book['genres']:
+            genres.append(genre)
+    
+    genres_distinct = list(set(genres))
+    result = []
+
+    for genre in genres_distinct:
+        o = {
+            "label": genre,
+            "value": genres.count(genre)
+        }
+
+        result.append(o)
+    
+    def sort_by_value(r):
+        return r['value']
+
+    result.sort(key=sort_by_value, reverse=True)
+    return result[0:5]
+
+#Fungsi Sorting
+
+def hightolow(request):
+    books = Book.objects.order_by('-rating')
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def lowtohigh(request):
+    books = Book.objects.order_by('rating')
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def priceless(request):
+    books = Book.objects.order_by('-harga')
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def pricey(request):
+    books = Book.objects.order_by('harga')
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def newest(request):
+    books = Book.objects.order_by('rilis')
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def oldest(request):
+    books = Book.objects.order_by('-rilis')
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+#Fungsi Filtering
+
+def english(request):
+    books = Book.objects.filter(language__icontains="English")
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def indonesian(request):
+    books = Book.objects.filter(language__icontains="Indonesian")
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def other(request):
+    books = Book.objects.filter(language__icontains="Other")
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+#Fungsi Filtering Menu Bar
+
+def art(request):
+    books = Book.objects.filter(genre__icontains="Art")
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def education(request):
+    books = Book.objects.filter(genre__icontains="Education")
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def family(request):
+    books = Book.objects.filter(genre__icontains="Family")
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def fiction(request):
+    books = Book.objects.filter(genre__icontains="Fiction")
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def food(request):
+    books = Book.objects.filter(genre__icontains="Food")
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def horror(request):
+    books = Book.objects.filter(genre__icontains="Horror")
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def kesehatan(request):
+    books = Book.objects.filter(genre__icontains="Kesehatan")
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def komputer(request):
+    books = Book.objects.filter(genre__icontains="Komputer")
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def komik(request):
+    books = Book.objects.filter(genre__icontains="Comics")
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
+
+def sejarah(request):
+    books = Book.objects.filter(genre__icontains="Sejarah")
+
+    context = {
+        'books': books
+    }
+    return render(request, 'all_books.html', context)
